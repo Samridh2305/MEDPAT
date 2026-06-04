@@ -5,13 +5,11 @@ from db.tables import LabResult
 class LabResultRepository:
 
     def save(
-        self,
-        report_id,
-        lab_value,
+            self,
+            report_id,
+            lab_value,
     ):
-
         with SessionLocal() as session:
-
             row = LabResult(
                 report_id=report_id,
                 raw_name=lab_value.raw_name,
@@ -25,6 +23,30 @@ class LabResultRepository:
             )
 
             session.add(row)
+            session.commit()
+
+    def save_all(
+            self,
+            report_id,
+            lab_values,
+    ):
+        with SessionLocal() as session:
+            rows = [
+                LabResult(
+                    report_id=report_id,
+                    raw_name=lab.raw_name,
+                    normalized_name=lab.normalized_name,
+                    value=lab.value,
+                    unit=lab.unit,
+                    reference_range=lab.reference_range,
+                    low_ref=lab.low_ref,
+                    high_ref=lab.high_ref,
+                    confidence=lab.confidence,
+                )
+                for lab in lab_values
+            ]
+
+            session.add_all(rows)
             session.commit()
 
     def get_by_report_id(

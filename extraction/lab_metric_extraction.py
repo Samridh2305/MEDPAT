@@ -1,6 +1,12 @@
 from common.lab_test import KNOWN_UNITS
-from extraction.normalizer import normalize_test_name, parse_reference_range
-from extraction.schema import ExtractedReport, LabValue
+from extraction.normalizer import (
+    normalize_test_name,
+    parse_reference_range
+)
+from extraction.schema import (
+    ExtractedReport,
+    LabValue
+)
 from llm.service import LLMClient
 
 

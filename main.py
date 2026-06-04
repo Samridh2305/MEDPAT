@@ -3,7 +3,6 @@ import os
 from fastapi import (
     FastAPI,
     File,
-    Form,
     HTTPException,
     UploadFile
 )
@@ -28,7 +27,7 @@ from medpat.report_parser import extract_text_from_upload
 from medpat.schema import (
     UploadReportResponse,
     AskQuestionRequest,
-    AskQuestionResponse,
+    AskQuestionResponse, LabResultResponse,
 )
 from medpat.sql_report_repository import SQLReportRepository
 
@@ -135,9 +134,9 @@ async def upload_report(
         )
 
         for item in processed_report.results:
-            lab_result_repository.save(
+            lab_result_repository.save_all(
                 report_id=report.report_id,
-                lab_value=item,
+                lab_values=item,
             )
 
             logger.info(
@@ -209,3 +208,21 @@ def ask_question(
         sources=result.sources,
     )
 
+@app.get(
+    "/reports/{report_id}/labs",
+    response_model=list[LabResultResponse],
+)
+def get_report_labs(
+    report_id: str,
+):
+    labs = lab_result_repository.get_by_report_id(
+        report_id
+    )
+
+    if not labs:
+        raise HTTPException(
+            status_code=404,
+            detail="No lab values found."
+        )
+
+    return labs

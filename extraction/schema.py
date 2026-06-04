@@ -1,24 +1,28 @@
-from pydantic import BaseModel, Field
+from typing import Optional
+
+from pydantic import (
+    BaseModel,
+    Field
+)
 
 
 class LabValue(BaseModel):
     raw_name: str
 
-    normalized_name: str | None = None
+    normalized_name: Optional[str]
 
-    value: float | None = None
+    value: Optional[float]
 
-    unit: str | None = None
+    unit: Optional[str]
 
-    reference_range: str | None = None
+    reference_range: Optional[str]
 
-    low_ref: float | None = None
+    low_ref: Optional[float]
 
-    high_ref: float | None = None
+    high_ref: Optional[float]
 
     confidence: float = Field(default=0.0)
 
+
 class ExtractedReport(BaseModel):
-
     results: list[LabValue]
-

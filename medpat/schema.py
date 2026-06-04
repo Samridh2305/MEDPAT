@@ -29,6 +29,18 @@ class AskQuestionResponse(BaseModel):
     answer: str
     sources: list[str]
 
+class LabResultResponse(BaseModel):
+    raw_name: str
+    normalized_name: str | None
+    value: float | None
+    unit: str | None
+    reference_range: str | None
+    low_ref: float | None
+    high_ref: float | None
+    confidence: float
+
+    class Config:
+        from_attributes = True
 
 @dataclass
 class RAGResponse:
