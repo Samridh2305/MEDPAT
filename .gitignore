@@ -7,3 +7,4 @@ chroma_db/
 *.log
 .env
 ml/data/
+ml/models/*.pkl

@@ -27,9 +27,11 @@ from medpat.report_parser import extract_text_from_upload
 from medpat.schema import (
     UploadReportResponse,
     AskQuestionRequest,
-    AskQuestionResponse, LabResultResponse,
+    AskQuestionResponse, LabResultResponse, DiseasePredictionResponse,
 )
 from medpat.sql_report_repository import SQLReportRepository
+from ml.services.build_features import labs_to_feature_dict, build_prediction_features
+from ml.services.prediction import predict_diseases
 
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
@@ -226,3 +228,43 @@ def get_report_labs(
         )
 
     return labs
+
+
+@app.post(
+    "/reports/{report_id}/predict",
+    response_model=DiseasePredictionResponse,
+)
+def predict_report_diseases(
+    report_id: str,
+):
+
+    labs = (
+        lab_result_repository
+        .get_by_report_id(
+            report_id
+        )
+    )
+
+    if not labs:
+        raise HTTPException(
+            status_code=404,
+            detail="No lab values found."
+        )
+
+    lab_dict = labs_to_feature_dict(
+        labs
+    )
+
+    features = (
+        build_prediction_features(
+            lab_dict
+        )
+    )
+
+    predictions = predict_diseases(
+        features
+    )
+
+    return DiseasePredictionResponse(
+        **predictions
+    )

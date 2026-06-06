@@ -108,15 +108,15 @@ def train_hypertension_model() -> None:
         importance,
     )
 
-    # joblib.dump(
-    # model,
-    # filename=MODEL_DIR / "hypertension_model.pkl",
-    # )
-    #
-    # logger.info(
-    #     "Model saved to %s",
-    #     MODEL_DIR / "hypertension_model.pkl",
-    # )
+    joblib.dump(
+    model,
+    filename=MODEL_DIR / "hypertension_model.pkl",
+    )
+
+    logger.info(
+        "Model saved to %s",
+        MODEL_DIR / "hypertension_model.pkl",
+    )
 
 if __name__ == "__main__":
     train_hypertension_model()

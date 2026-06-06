@@ -108,15 +108,15 @@ def train_diabetes_model() -> None:
         importance,
     )
 
-    # joblib.dump(
-    # model,
-    # filename=MODEL_DIR / "diabetes_model.pkl",
-    # )
-    #
-    # logger.info(
-    #     "Model saved to %s",
-    #     MODEL_DIR / "diabetes_model.pkl",
-    # )
+    joblib.dump(
+    model,
+    filename=MODEL_DIR / "diabetes_model.pkl",
+    )
+
+    logger.info(
+        "Model saved to %s",
+        MODEL_DIR / "diabetes_model.pkl",
+    )
 
 if __name__ == "__main__":
     train_diabetes_model()

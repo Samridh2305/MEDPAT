@@ -15,23 +15,9 @@ LAB_COLUMNS = [
     # Diabetes
     "LBXGH",
 
-    # Lipids
+    # Lipids (core only)
     "LBDHDD",
     "LBXTC",
-
-    # ApoB
-    "LBXAPB",
-
-    # Triglycerides / LDL
-    "LBXTR",
-    "LBDLDL",
-
-    # Kidney markers
-    "URDACT",
-    "URXOAV",
-
-    # Vitamin D
-    "LBXVIDMS",
 ]
 
 LAB_RENAME_MAP = {
@@ -49,54 +35,56 @@ LAB_RENAME_MAP = {
     # Diabetes
     "LBXGH": "hba1c",
 
-    # Lipids
+    # Lipids (core only)
     "LBDHDD": "hdl",
     "LBXTC": "cholesterol",
+}
 
-    # Additional lipids
-    "LBXAPB": "apob",
-    "LBXTR": "triglycerides",
-    "LBDLDL": "ldl",
-
-    # Kidney
+CLINICAL_RENAME_MAP = {
     "URDACT": "urine_albumin_creatinine_ratio",
     "URXOAV": "urine_osmolality",
-
-    # Vitamin D
+    "LBXTR": "triglycerides",
+    "LBDLDL": "ldl",
+    "LBXAPB": "apob",
     "LBXVIDMS": "vitamin_d",
 }
 
 FEATURES = [
-    # CBC
+    # Lab features
     "hemoglobin",
     "rbc",
     "wbc",
-
-    # Biochemistry
     "glucose",
     "creatinine",
     "bun",
     "albumin",
-
-    # Diabetes
     "hba1c",
-
-    # Lipids
     "hdl",
     "cholesterol",
+
+    # Clinical features (from clinical module)
+    "avg_sys_bp",
+    "avg_dia_bp",
+    "pulse_rate",
+    "hypertension_stage1",
+    "hypertension_stage2",
+
     "apob",
     "triglycerides",
     "ldl",
+    "tg_ldl_ratio",
 
-    # Kidney
     "urine_albumin_creatinine_ratio",
     "urine_osmolality",
 
-    # Vitamin D
     "vitamin_d",
+    "vitamin_d_deficient",
+
+    "activity_score",
 
     # Demographics
     "age",
     "gender",
     "race",
+
 ]
