@@ -27,10 +27,15 @@ from medpat.report_parser import extract_text_from_upload
 from medpat.schema import (
     UploadReportResponse,
     AskQuestionRequest,
-    AskQuestionResponse, LabResultResponse, DiseasePredictionResponse,
+    AskQuestionResponse,
+    LabResultResponse,
+    DiseasePredictionResponse,
 )
 from medpat.sql_report_repository import SQLReportRepository
-from ml.services.build_features import labs_to_feature_dict, build_prediction_features
+from ml.services.build_features import (
+    labs_to_feature_dict,
+    build_prediction_features
+)
 from ml.services.prediction import predict_diseases
 
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
@@ -135,12 +140,12 @@ async def upload_report(
             f"Extracted {len(processed_report.results)} lab values"
         )
 
-        for item in processed_report.results:
-            lab_result_repository.save_all(
-                report_id=report.report_id,
-                lab_values=item,
-            )
+        lab_result_repository.save_all(
+            report_id=report.report_id,
+            lab_values=processed_report.results,
+        )
 
+        for item in processed_report.results:
             logger.info(
                 "Extracted lab value: %s",
                 item.model_dump()
@@ -184,8 +189,6 @@ def ask_question(
             status_code=404,
             detail="Report not found.",
         )
-
-    llm = LLMClient()
 
     try:
         result = answer_question(
