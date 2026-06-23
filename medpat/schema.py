@@ -32,6 +32,7 @@ class AskQuestionResponse(BaseModel):
 class LabResultResponse(BaseModel):
     raw_name: str
     normalized_name: str | None
+    display_name: str | None
     value: float | None
     unit: str | None
     reference_range: str | None
@@ -41,6 +42,13 @@ class LabResultResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class DiseasePredictionResponse(
+    BaseModel
+):
+    diabetes_risk: float
+    kidney_risk: float
+    hypertension_risk: float
 
 @dataclass
 class RAGResponse:
