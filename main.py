@@ -230,7 +230,23 @@ def get_report_labs(
             detail="No lab values found."
         )
 
-    return labs
+    return [
+        LabResultResponse(
+            raw_name=lab.raw_name,
+            normalized_name=lab.normalized_name,
+            display_name=(
+                    lab.normalized_name
+                    or lab.raw_name
+            ),
+            value=lab.value,
+            unit=lab.unit,
+            reference_range=lab.reference_range,
+            low_ref=lab.low_ref,
+            high_ref=lab.high_ref,
+            confidence=lab.confidence,
+        )
+        for lab in labs
+    ]
 
 
 @app.post(

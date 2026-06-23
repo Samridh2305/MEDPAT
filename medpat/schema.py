@@ -32,6 +32,7 @@ class AskQuestionResponse(BaseModel):
 class LabResultResponse(BaseModel):
     raw_name: str
     normalized_name: str | None
+    display_name: str | None
     value: float | None
     unit: str | None
     reference_range: str | None

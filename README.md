@@ -72,6 +72,26 @@ Open the API docs:
 http://127.0.0.1:8000/docs
 ```
 
+## CI/CD
+
+GitHub Actions runs the pipeline in [.github/workflows/ci-cd.yml](.github/workflows/ci-cd.yml):
+
+- Pull requests to `main` run Python dependency installation, source compilation, and a Docker build.
+- Pushes to `main` and version tags publish the Docker image to GitHub Container Registry.
+- Deployment is optional and runs only when the repository variable `ENABLE_SSH_DEPLOY` is set to `true`.
+
+For SSH deployment, configure these repository secrets:
+
+```text
+DEPLOY_HOST
+DEPLOY_USER
+DEPLOY_SSH_KEY
+DEPLOY_PORT
+DEPLOY_PATH
+```
+
+The deployment host should have Docker Compose installed and a checked-out copy of this repository at `DEPLOY_PATH`. Production runs use `docker-compose.yml` plus `docker-compose.prod.yml`, with `MEDPAT_IMAGE` set by the workflow.
+
 ## Storage
 
 SQL Server stores user-specific report data.
