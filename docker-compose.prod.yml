@@ -1,0 +1,3 @@
+services:
+  medpat:
+    image: ${MEDPAT_IMAGE}
