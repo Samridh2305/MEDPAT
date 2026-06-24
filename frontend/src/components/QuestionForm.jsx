@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api/medpatapi";
+import ReactMarkdown from "react-markdown";
 
 function QuestionForm({reportId}){
     const [question, setQuestion] = useState("");
@@ -52,7 +53,12 @@ return (
         }
       </button>
 
-      <p>{answer}</p>
+      <div className="answer-box">
+        <ReactMarkdown>
+          {answer}
+        </ReactMarkdown>
+      </div>
+
     </div>
   );
 }
