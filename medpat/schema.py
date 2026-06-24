@@ -42,6 +42,13 @@ class LabResultResponse(BaseModel):
     class Config:
         from_attributes = True
 
+class DiseasePredictionResponse(
+    BaseModel
+):
+    diabetes_risk: float
+    kidney_risk: float
+    hypertension_risk: float
+
 @dataclass
 class RAGResponse:
     answer: str
