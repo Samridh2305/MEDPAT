@@ -133,12 +133,12 @@ async def upload_report(
             f"Extracted {len(processed_report.results)} lab values"
         )
 
-        for item in processed_report.results:
-            lab_result_repository.save_all(
-                report_id=report.report_id,
-                lab_values=item,
-            )
+        lab_result_repository.save_all(
+            report_id=report.report_id,
+            lab_values=processed_report.results,
+        )
 
+        for item in processed_report.results:
             logger.info(
                 "Extracted lab value: %s",
                 item.model_dump()

@@ -102,11 +102,3 @@ medpat/llm.py                  OpenAI answer generation
 knowledge_base/lab_tests.md    Starter medical context
 examples/sample_cbc_report.txt Demo report
 ```
-
-## Next improvements
-
-- Add user accounts and encrypted report storage.
-- Expand the knowledge base with clinician-reviewed references.
-- Add structured lab-value extraction and range comparison.
-- Add multilingual explanations.
-- Add audit logs and stronger medical safety filters before production.
